@@ -73,7 +73,7 @@ fun BluromaticScreen(blurViewModel: BlurViewModel = viewModel(factory = BlurView
                 blurUiState = uiState,
                 blurAmountOptions = blurViewModel.blurAmount,
                 applyBlur = blurViewModel::applyBlur,
-                cancelWork = {}
+                cancelWork = blurViewModel::cancelWork
             )
         }
     }
@@ -106,7 +106,9 @@ fun BluromaticScreenContent(
         BlurActions(
             blurUiState = blurUiState,
             onStartClick = { applyBlur(selectedValue) },
-            onSeeFileClick = {},
+            onSeeFileClick = { currentUri ->
+                showBlurredImage(context, currentUri)
+            },
             onCancelClick = { cancelWork() },
             modifier = Modifier.fillMaxWidth()
         )
